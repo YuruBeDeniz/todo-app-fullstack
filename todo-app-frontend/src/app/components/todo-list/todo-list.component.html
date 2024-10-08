@@ -1,12 +1,12 @@
 <div>
-    <h1>Todo List</h1>
-    <input [(ngModel)]="title" placeholder="Add todo" />
-    <button (click)="addTodo()">Add</button>
-    
-    <ol>
-      <li *ngFor="let todo of todos">
-        <app-todo [todo]="todo"></app-todo>
-      </li>
-    </ol>
-  </div>
+  <h1>Todo List</h1>
+  <input [(ngModel)]="title" placeholder="Add todo" />
+  <button (click)="addTodo()">Add</button>
+  
+  <ol>
+    <li *ngFor="let todo of todos">
+      <app-todo [todo]="todo"></app-todo>
+    </li>
+  </ol>
+</div>
   

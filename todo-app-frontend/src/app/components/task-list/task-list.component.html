@@ -1,0 +1,12 @@
+<h1>Task List</h1>
+
+<form [formGroup]="taskForm" (ngSubmit)="addTask()">
+  <input formControlName="title" placeholder="Add task" />
+  <button type="submit">Add</button>
+
+  <ol>
+    <li *ngFor="let task of tasks">
+      <app-task [task]="task"></app-task>
+    </li>
+  </ol>
+</form>
