@@ -1,0 +1,13 @@
+nav {
+    background-color: antiquewhite
+}
+
+.navbar ul {
+    display: flex;
+    gap: 10px;
+}
+
+
+.navbar-links {
+    list-style-type: none
+}
