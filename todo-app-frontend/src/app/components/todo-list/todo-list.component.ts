@@ -1,12 +1,40 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Todo, TodoService } from '../../../services/todo.service';
+import { TodoComponent } from '../todo/todo.component';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-todo-list',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, FormsModule, TodoComponent],
   templateUrl: './todo-list.component.html',
-  styleUrl: './todo-list.component.css'
+  styleUrls: ['./todo-list.component.css']
 })
-export class TodoListComponent {
+export class TodoListComponent implements OnInit {
+  todos: Todo[] = [];
+  title = '';
 
+  constructor(private todoService: TodoService) {}
+
+  ngOnInit(): void {
+    this.getTodos();
+  }
+
+  addTodo(): void {
+    const newTodo: Todo = { title: this.title, completed: false };
+    this.todoService.addTodo(newTodo).subscribe((todo) => {
+      this.todos.push(todo);
+      this.title = '';
+    });
+  }
+
+  getTodos(): void {
+    this.todoService.getTodos().subscribe(todos => this.todos = todos);
+  }
+
+  toggleComplete(todo: Todo): void {
+    todo.completed = !todo.completed;
+    this.todoService.updateTodo(todo).subscribe();
+  }
 }

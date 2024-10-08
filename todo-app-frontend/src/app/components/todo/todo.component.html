@@ -1,12 +1,4 @@
 <div>
-    <h1>Todo List</h1>
-    <input [(ngModel)]="title" placeholder="Add todo" />
-    <button (click)="addTodo()">Add</button>
-  
-    <ul>
-      <li *ngFor="let todo of todos">
-        <input type="checkbox" [checked]="todo.completed" (change)="toggleComplete(todo)"/>
-        <span [ngClass]="{ 'completed': todo.completed }">{{ todo.title }}</span>
-      </li>
-    </ul>
-  </div>
+  <input type="checkbox" [checked]="todo.completed" (change)="toggleComplete()"/>
+  <span [ngClass]="{ 'completed': todo.completed }">{{ todo.title }}</span>
+</div>
