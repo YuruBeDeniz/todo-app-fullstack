@@ -5,8 +5,11 @@
   <button type="submit">Add</button>
 
   <ol>
-    <li *ngFor="let task of tasks">
-      <app-task [task]="task" (taskUpdated)="onTaskUpdated($event)"></app-task>
+    <li *ngFor="let task of tasks()">
+      <app-task [task]="task" (completedChanged)="onCompletedChanged($event)"></app-task>
     </li>
   </ol>
 </form>
+
+
+<input type="text" (change)="onInputChange($event)" placeholder="Type something..." />

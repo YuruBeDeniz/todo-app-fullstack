@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Todo } from '../../../services/todo.service';
 import { NgClass } from '@angular/common';
 
@@ -12,8 +12,10 @@ import { NgClass } from '@angular/common';
 
 export class TodoComponent {
   @Input() todo!: Todo;
+  @Output() completedChanged = new EventEmitter<Todo>();
 
   toggleComplete(): void {
     this.todo.completed = !this.todo.completed;
+    this.completedChanged.emit(this.todo)
   }
 }

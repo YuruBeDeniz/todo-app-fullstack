@@ -12,8 +12,8 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 })
 
 export class TaskComponent {
-  @Input() task!: Task;
-  @Output() taskUpdated = new EventEmitter<Task>(); 
+  @Input({required: true}) task!: Task;
+  @Output() completedChanged = new EventEmitter<Task>(); 
   taskForm!: FormGroup;
 
 
@@ -27,6 +27,6 @@ export class TaskComponent {
 
   toggleComplete(): void {
     this.task.completed = !this.taskForm.get('completed')?.value;
-    this.taskUpdated.emit(this.task)
+    this.completedChanged.emit(this.task)
   }
 }

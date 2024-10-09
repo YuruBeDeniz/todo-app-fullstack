@@ -2,3 +2,4 @@
   <input type="checkbox" formControlName="completed" (change)="toggleComplete()" />
   <span [ngClass]="{ 'completed': taskForm.get('completed')?.value }">{{ task.title }}</span>
 </form>
+

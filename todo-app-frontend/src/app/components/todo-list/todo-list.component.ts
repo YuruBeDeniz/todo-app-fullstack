@@ -33,8 +33,7 @@ export class TodoListComponent implements OnInit {
     this.todoService.getTodos().subscribe(todos => this.todos = todos);
   }
 
-  toggleComplete(todo: Todo): void {
-    todo.completed = !todo.completed;
+  onIsCompleted(todo: Todo): void {
     this.todoService.updateTodo(todo).subscribe();
   }
 }
