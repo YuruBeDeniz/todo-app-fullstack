@@ -42,7 +42,7 @@ export class TaskListComponent implements OnInit {
     this.taskService.getTasks().subscribe(tasks => this.tasks = tasks);
   }
 
-  toggleComplete(task: Task): void {
+  onTaskUpdated(task: Task): void {
 
     task.completed = !task.completed;
     this.taskService.updateTask(task).subscribe();

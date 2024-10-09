@@ -6,7 +6,7 @@
 
   <ol>
     <li *ngFor="let task of tasks">
-      <app-task [task]="task"></app-task>
+      <app-task [task]="task" (taskUpdated)="onTaskUpdated($event)"></app-task>
     </li>
   </ol>
 </form>

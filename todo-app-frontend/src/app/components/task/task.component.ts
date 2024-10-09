@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Task } from '../../../services/task.service';
 import { NgClass } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -13,7 +13,9 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 export class TaskComponent {
   @Input() task!: Task;
+  @Output() taskUpdated = new EventEmitter<Task>(); 
   taskForm!: FormGroup;
+
 
   constructor(private formBuilder: FormBuilder){}
 
@@ -25,5 +27,6 @@ export class TaskComponent {
 
   toggleComplete(): void {
     this.task.completed = !this.taskForm.get('completed')?.value;
+    this.taskUpdated.emit(this.task)
   }
 }
