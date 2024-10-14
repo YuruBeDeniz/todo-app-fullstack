@@ -18,9 +18,14 @@ export class TaskListComponent {
 
   constructor(private taskService: TaskService, private formBuilder: FormBuilder) {
     console.log(this)
+    /* console.log(TaskService)
+    console.log(FormBuilder)
+    console.log(formBuilder) */
   }
 
   ngOnInit(): void {
+    //initilize form group inside ngOnInit so that:
+    //the form is set up only after all necessary components and services are available.
     this.taskForm = this.formBuilder.group({
       title: ['', Validators.required]
     });
@@ -36,7 +41,9 @@ export class TaskListComponent {
     
     // Add task and update the signal
     this.taskService.addTask(newTask).subscribe((task) => {
-      this.tasks.update((tasks) => [...tasks, task]); // Updating signal using update()
+      this.tasks.update((tasks) => {
+       return [...tasks, task]
+      }); // Updating signal using update()
       this.taskForm.reset();
     });
   }
@@ -49,7 +56,6 @@ export class TaskListComponent {
   }
 
   onCompletedChanged(task: Task): void {
-    task.completed = !task.completed;
     this.taskService.updateTask(task).subscribe();
   }
 
