@@ -1,3 +1,13 @@
 .completed {
   text-decoration: line-through;
 }
+
+.task-form {
+  display: flex;
+  justify-content: space-between;
+  width: 200px;
+}
+
+a { 
+  color: red
+}

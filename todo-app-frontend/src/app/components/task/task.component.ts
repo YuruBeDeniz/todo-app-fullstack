@@ -2,11 +2,12 @@ import { Component, EventEmitter, Input, Output, signal } from '@angular/core';
 import { Task } from '../../../services/task.service';
 import { NgClass } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-task',
   standalone: true,
-  imports: [ReactiveFormsModule, NgClass],
+  imports: [ReactiveFormsModule, NgClass, RouterOutlet, RouterLink],
   templateUrl: './task.component.html',
   styleUrl: './task.component.css'
 })

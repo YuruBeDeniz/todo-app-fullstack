@@ -41,8 +41,26 @@ const updateTask = (req, res) => {
     });
 }
 
+const getTask = (req, res) => {
+    const { id } = req.params;
+    
+    Task.findById(id)
+      .then(taskFromDb => {
+        if(!taskFromDb) {
+            console.log(taskFromDb);
+            return res.status(404).json({ message: 'Task not found' });
+        }
+        res.json(taskFromDb);
+      })
+      .catch(error => {
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error' });
+      });
+}
+
 module.exports = {
     createTask,
     getTasks,
-    updateTask
+    updateTask, 
+    getTask
 };

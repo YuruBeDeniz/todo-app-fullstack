@@ -1,5 +1,14 @@
 <form [formGroup]="taskForm">
-  <input type="checkbox" formControlName="completed" (change)="toggleComplete()" />
-  <span [ngClass]="{ 'completed': taskForm.get('completed')?.value }">{{ task.title }}</span>
+  <div class="task-form">
+    <div>
+      <input type="checkbox" formControlName="completed" (change)="toggleComplete()" />
+      <span [ngClass]="{ 'completed': taskForm.get('completed')?.value }">{{ task.title }}</span>
+    </div>
+    <div>
+      <a [routerLink]="['task-details', task._id]">Edit</a>
+    </div>
+  </div>
 </form>
+
+<router-outlet></router-outlet>
 
