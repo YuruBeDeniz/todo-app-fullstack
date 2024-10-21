@@ -1,1 +1,6 @@
-<p>task-detail works!</p>
+@if (taskForm) {
+  <form [formGroup]="taskForm" (ngSubmit)="handleSubmit()">
+      <input formControlName="title" />
+      <button type="submit" >Save</button>
+  </form>
+}

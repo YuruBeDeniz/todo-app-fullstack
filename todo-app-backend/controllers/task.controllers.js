@@ -28,11 +28,13 @@ const getTasks = (req, res) => {
 }
 
 const updateTask = (req, res) => {
+    console.log(req.body)
     const { title, completed } = req.body;
     const { id } = req.params;  
 
     Task.findByIdAndUpdate(id, { title, completed }, { new: true })
     .then(updatedTask => {
+        console.log("updatedTask: ", updatedTask)
         res.json(updatedTask);
     })
     .catch(error => {
