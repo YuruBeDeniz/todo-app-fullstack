@@ -1,1 +1,8 @@
-<p>home</p>
+<p>Home</p>
+
+<h1>Welcome {{ name }} 👋</h1>
+<h2>Today is {{ today | date }}</h2>
+
+<h3>Counter: {{ initialCount }}</h3>
+<app-counter [(count)]="initialCount" ></app-counter>
+
