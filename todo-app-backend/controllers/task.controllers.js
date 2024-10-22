@@ -60,9 +60,22 @@ const getTask = (req, res) => {
       });
 }
 
+const deleteTask = (req, res) => {
+    const { id } = req.params;
+    Task.findByIdAndDelete(id)
+    .then(() => {
+      res.status(200).json({ message: "Task deleted" });
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({ message: "Internal Server Error" });
+    });
+}
+
 module.exports = {
     createTask,
     getTasks,
     updateTask, 
-    getTask
+    getTask,
+    deleteTask
 };

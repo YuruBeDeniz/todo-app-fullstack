@@ -30,4 +30,8 @@ export class TaskService {
   getTaskDetails(taskId: string): Observable<Task> {
     return this.http.get<Task>(`${this.apiUrl}/task-details/${taskId}`);
   }
+
+  deleteTask(taskId: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${taskId}`);
+  }
 }

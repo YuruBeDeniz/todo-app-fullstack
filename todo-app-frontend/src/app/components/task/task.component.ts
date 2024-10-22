@@ -1,13 +1,13 @@
 import { Component, EventEmitter, Input, Output, signal } from '@angular/core';
-import { Task } from '../../../services/task.service';
-import { NgClass } from '@angular/common';
+import { Task, TaskService } from '../../../services/task.service';
+import { CommonModule, NgClass } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-task',
   standalone: true,
-  imports: [ReactiveFormsModule, NgClass, RouterOutlet, RouterLink],
+  imports: [ReactiveFormsModule, NgClass, RouterOutlet, RouterLink, CommonModule],
   templateUrl: './task.component.html',
   styleUrl: './task.component.css'
 })
@@ -17,10 +17,10 @@ export class TaskComponent {
   @Output() completedChanged = new EventEmitter<Task>(); 
 
   taskForm!: FormGroup;
-
   isCompleted = signal<boolean>(false);
+  errorMessage: string = '';
 
-  constructor(private formBuilder: FormBuilder){}
+  constructor(private formBuilder: FormBuilder, private taskService: TaskService){}
 
   ngOnInit(): void {
     this.isCompleted.set(this.task.completed); // initialize signal with task's completed state
@@ -36,10 +36,26 @@ export class TaskComponent {
     this.task.completed = this.isCompleted(); // update task's completed state by getting the current signal value
     this.completedChanged.emit(this.task);
   }
+
+  deleteTask(id: string): void {
+    if(!id) return;
+    this.taskService.deleteTask(id).subscribe({
+      next: () => {
+        console.log("Task deleted successfully");
+      },
+      error: (err) => {
+        this.errorMessage = "Error deleting task";
+        console.error(err);
+      }
+    });
+  }
 }
 
 
-  //value omes from the current value of the signal. 
+
+
+
+  //value comes from the current value of the signal. 
   //When you call the update() method on a signal in Angular,
   // it automatically passes the current value of the signal
   // as an argument to the function inside update().

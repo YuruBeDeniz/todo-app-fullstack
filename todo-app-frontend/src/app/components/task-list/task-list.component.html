@@ -1,5 +1,9 @@
 <h1>Task List</h1>
 
+@if (errorMessage) {
+  <div class="error">{{ errorMessage }}</div>
+}
+
 <form [formGroup]="taskForm" (ngSubmit)="addTask()">
   <input formControlName="title" placeholder="Add task" />
   <button type="submit">Add</button>
@@ -10,6 +14,5 @@
     </li>
   </ol>
 </form>
-
 
 <input type="text" (change)="onInputChange($event)" placeholder="Type something..." />

@@ -15,6 +15,7 @@ import { CommonModule } from '@angular/common';
 export class TaskListComponent {
   tasks = signal<Task[]>([]);
   taskForm!: FormGroup;
+  errorMessage: string = '';
 
   constructor(private taskService: TaskService, private formBuilder: FormBuilder) {
     console.log(this)
@@ -39,19 +40,32 @@ export class TaskListComponent {
       completed: false
     };
     
-    // Add task and update the signal
-    this.taskService.addTask(newTask).subscribe((task) => {
-      this.tasks.update((tasks) => {
-       return [...tasks, task]
-      }); // Updating signal using update()
-      this.taskForm.reset();
+    // Add task to database and update the signal
+    this.taskService.addTask(newTask).subscribe({
+      next: (task) => {
+        this.tasks.update((tasks) => [...tasks, task]);
+        this.taskForm.reset();
+      },
+      error: (err) => {
+        this.errorMessage = 'Error adding task.';
+        console.error(err);
+      },
+      complete: () => {
+        console.log('Add task request completed.');
+      }
     });
   }
 
   getTasks(): void {
     // Fetch tasks and set them in the signal
-    this.taskService.getTasks().subscribe((tasks) => {
-      this.tasks.set(tasks); // Setting the signal's value
+    this.taskService.getTasks().subscribe({
+      next: (tasks) => { 
+        this.tasks.set(tasks); // set the signal's value
+      },
+      error: (err) => {
+        this.errorMessage = 'Error fetching task.';
+        console.error(err)
+      }
     });
   }
 
