@@ -13,4 +13,8 @@ export class HomeComponent {
   initialCount = 18;
   today = new Date();
   name = 'Deniz';
+
+  onCountChange(newCount: number) {
+    this.initialCount = newCount;
+  }
 }
