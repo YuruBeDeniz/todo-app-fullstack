@@ -10,7 +10,11 @@
 
   <ol>
     <li *ngFor="let task of tasks()">
-      <app-task [task]="task" (completedChanged)="onCompletedChanged($event)"></app-task>
+      <app-task 
+        [task]="task" 
+        (completedChanged)="onCompletedChanged($event)"
+        (taskDelete)="onDeleteTask($event)"
+      />
     </li>
   </ol>
 </form>

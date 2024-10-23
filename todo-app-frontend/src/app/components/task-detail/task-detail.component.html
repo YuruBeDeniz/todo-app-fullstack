@@ -1,6 +1,6 @@
 @if (taskForm) {
   <form [formGroup]="taskForm" (ngSubmit)="handleSubmit()">
-      <input formControlName="title" />
+      <input formControlName="title" placeholder="Edit task"/>
       <button type="submit" >Save</button>
   </form>
 }

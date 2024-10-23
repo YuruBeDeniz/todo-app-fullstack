@@ -15,6 +15,7 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 export class TaskComponent {
   @Input({required: true}) task!: Task;
   @Output() completedChanged = new EventEmitter<Task>(); 
+  @Output() taskDelete = new EventEmitter<string>();
 
   taskForm!: FormGroup;
   isCompleted = signal<boolean>(false);
@@ -38,16 +39,7 @@ export class TaskComponent {
   }
 
   deleteTask(id: string): void {
-    if(!id) return;
-    this.taskService.deleteTask(id).subscribe({
-      next: () => {
-        console.log("Task deleted successfully");
-      },
-      error: (err) => {
-        this.errorMessage = "Error deleting task";
-        console.error(err);
-      }
-    });
+    this.taskDelete.emit(id);    
   }
 }
 
@@ -57,7 +49,7 @@ export class TaskComponent {
 
   //value comes from the current value of the signal. 
   //When you call the update() method on a signal in Angular,
-  // it automatically passes the current value of the signal
+  // it automatically passes the "current" value of the signal
   // as an argument to the function inside update().
 
 /* 

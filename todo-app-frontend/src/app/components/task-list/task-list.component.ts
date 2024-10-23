@@ -18,7 +18,7 @@ export class TaskListComponent {
   errorMessage: string = '';
 
   constructor(private taskService: TaskService, private formBuilder: FormBuilder) {
-    console.log(this)
+    //console.log(this)
     /* console.log(TaskService)
     console.log(FormBuilder)
     console.log(formBuilder) */
@@ -76,5 +76,19 @@ export class TaskListComponent {
   onInputChange(event: Event): void {
     const inputValue = (event.target as HTMLInputElement).value; 
     console.log('Input value:', inputValue);
+  }
+
+  onDeleteTask(id: string): void {
+    if(!id) return;
+    this.taskService.deleteTask(id).subscribe({
+      next: () => {
+        console.log("Task deleted successfully");
+        this.getTasks();
+      },
+      error: (err) => {
+        this.errorMessage = "Error deleting task";
+        console.error(err);
+      }
+    });
   }
 }
