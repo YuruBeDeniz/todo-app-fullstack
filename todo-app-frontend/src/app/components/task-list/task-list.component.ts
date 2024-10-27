@@ -1,8 +1,9 @@
 import { Component, OnInit, signal } from '@angular/core';
-import { Task, TaskService } from '../../../services/task.service';
+import { TaskService } from '../../../services/task.service';
 import { TaskComponent } from '../task/task.component';
 import { FormGroup, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import type { Task } from '../../models/task.model';
 
 @Component({
   selector: 'app-task-list',

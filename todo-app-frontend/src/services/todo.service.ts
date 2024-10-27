@@ -1,12 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import type { Todo } from "../app/models/todo.model";
 
-export type Todo = {
-    _id?: string;
-    title: string;
-    completed: boolean;
-}
 
 @Injectable({providedIn: 'root'})
 

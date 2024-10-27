@@ -1,8 +1,9 @@
 import { Component, EventEmitter, Input, Output, signal } from '@angular/core';
-import { Task, TaskService } from '../../../services/task.service';
+import { TaskService } from '../../../services/task.service';
 import { CommonModule, NgClass } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink, RouterOutlet } from '@angular/router';
+import type { Task } from '../../models/task.model';
 
 @Component({
   selector: 'app-task',

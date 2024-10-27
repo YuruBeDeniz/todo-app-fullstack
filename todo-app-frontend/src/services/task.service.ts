@@ -1,12 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-
-export type Task = {
-    _id?: string;
-    title: string;
-    completed: boolean;
-}
+import type { Task } from "../app/models/task.model";
 
 @Injectable({providedIn: 'root'})
 

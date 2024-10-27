@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Task, TaskService } from '../../../services/task.service';
+import { TaskService } from '../../../services/task.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router'; 
 import { map, retry, Subscription } from 'rxjs';
+import type { Task } from '../../models/task.model';
 
 @Component({
   selector: 'app-task-detail',
