@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, signal } from '@angular/core';
 import { TaskService } from '../../../services/task.service';
 import { CommonModule, NgClass } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -10,7 +10,8 @@ import type { Task } from '../../models/task.model';
   standalone: true,
   imports: [ReactiveFormsModule, NgClass, RouterOutlet, RouterLink, CommonModule],
   templateUrl: './task.component.html',
-  styleUrl: './task.component.css'
+  styleUrl: './task.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush, 
 })
 
 export class TaskComponent {

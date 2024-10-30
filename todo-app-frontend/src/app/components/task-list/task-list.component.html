@@ -1,5 +1,9 @@
 <h1>Task List</h1>
 
+@if(isFetching() && !errorMessage) {
+  <p>Fetching tasks....</p>
+}
+
 @if (errorMessage) {
   <div class="error">{{ errorMessage }}</div>
 }
@@ -20,3 +24,7 @@
 </form>
 
 <input type="text" (change)="onInputChange($event)" placeholder="Type something..." />
+
+<!-- @for (task of taskss; track taskss._div) {
+  <li>{{taskss}}</li>
+} -->

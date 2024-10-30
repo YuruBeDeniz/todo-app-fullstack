@@ -1,9 +1,10 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, signal } from '@angular/core';
 import { TaskService } from '../../../services/task.service';
 import { TaskComponent } from '../task/task.component';
 import { FormGroup, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import type { Task } from '../../models/task.model';
+import { catchError, interval, switchMap, throwError, timer } from 'rxjs';
 
 @Component({
   selector: 'app-task-list',
@@ -11,18 +12,16 @@ import type { Task } from '../../models/task.model';
   imports: [CommonModule, ReactiveFormsModule, TaskComponent],
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.css'],
-  outputs: ['completedChanged']
+  outputs: ['completedChanged'],
+  changeDetection: ChangeDetectionStrategy.OnPush, 
 })
 export class TaskListComponent {
   tasks = signal<Task[]>([]);
   taskForm!: FormGroup;
   errorMessage: string = '';
+  isFetching = signal<boolean>(false);
 
   constructor(private taskService: TaskService, private formBuilder: FormBuilder) {
-    //console.log(this)
-    /* console.log(TaskService)
-    console.log(FormBuilder)
-    console.log(formBuilder) */
   }
 
   ngOnInit(): void {
@@ -42,14 +41,19 @@ export class TaskListComponent {
     };
     
     // Add task to database and update the signal
-    this.taskService.addTask(newTask).subscribe({
+    this.taskService.addTask(newTask)
+      .pipe(catchError((error) => { 
+        console.error(error);
+        return throwError(() => new Error("Error adding task."))}
+      ))
+      .subscribe({
       next: (task) => {
         this.tasks.update((tasks) => [...tasks, task]);
         this.taskForm.reset();
       },
-      error: (err) => {
-        this.errorMessage = 'Error adding task.';
-        console.error(err);
+      error: (error) => {
+        this.errorMessage = error.message;
+        
       },
       complete: () => {
         console.log('Add task request completed.');
@@ -58,17 +62,32 @@ export class TaskListComponent {
   }
 
   getTasks(): void {
-    // Fetch tasks and set them in the signal
-    this.taskService.getTasks().subscribe({
-      next: (tasks) => { 
-        this.tasks.set(tasks); // set the signal's value
+    this.isFetching.set(true); 
+  
+    timer(1000).pipe(
+      switchMap(() => this.taskService.getTasks())  
+    ).subscribe({
+      next: (tasks) => {
+        this.tasks.set(tasks);  
       },
       error: (err) => {
-        this.errorMessage = 'Error fetching task.';
-        console.error(err)
+        this.errorMessage = 'Error fetching tasks.';
+        console.error(err);
+      },
+      complete: () => {
+        this.isFetching.set(false);  
+        console.log('Get tasks request completed.');
       }
     });
   }
+
+  
+ 
+/* //check how to make this work
+get taskss() { 
+    return this.taskService.getTasks();
+  } 
+  */
 
   onCompletedChanged(task: Task): void {
     this.taskService.updateTask(task).subscribe();
@@ -93,3 +112,4 @@ export class TaskListComponent {
     });
   }
 }
+
