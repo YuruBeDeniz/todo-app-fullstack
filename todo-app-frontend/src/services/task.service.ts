@@ -48,12 +48,12 @@ export class TaskService {
 
   getTaskDetails(taskId: string): Observable<Task> {
     return new Observable<Task>((observer) => {
-      this.ngZone.runOutsideAngular(() => {
+     
         this.http.get<Task>(`${this.apiUrl}/task-details/${taskId}`).subscribe({
           next: (response) => observer.next(response),
           error: (error) => observer.error(error),
           complete: () => observer.complete()
-        });
+        
       });
     });
   }

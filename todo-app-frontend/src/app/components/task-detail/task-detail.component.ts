@@ -12,8 +12,9 @@ import type { Task } from '../../models/task.model';
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './task-detail.component.html',
-  styleUrl: './task-detail.component.css'
+  styleUrl: './task-detail.component.css',
 })
+
 export class TaskDetailComponent {
   task!: Task;
   taskForm!: FormGroup;
@@ -27,12 +28,10 @@ export class TaskDetailComponent {
   ) {}
 
   ngOnInit() {
-    console.log(this.route.params)
     const taskId = this.route.snapshot.paramMap.get('taskId');
     if (taskId) {
       this.subscription =  this.taskService.getTaskDetails(taskId).subscribe((task) => {
         this.task = task;
-        console.log(this.task);
 
         this.taskForm = this.formBuilder.group({
           title: [this.task.title],
@@ -54,7 +53,7 @@ export class TaskDetailComponent {
       map((response: Task) => {
         return {
           ...response,
-          title: response.title.toUpperCase(),
+          title: response.title.toUpperCase(), 
           updatedAt: new Date() 
         };
       })
@@ -62,7 +61,7 @@ export class TaskDetailComponent {
     .subscribe({
       next: (response) => {
         this.task = response;
-        console.log('Task updated with additional data:', response);
+        console.log('Task updated:', response);
         this.router.navigate(['/tasks']);
       },
       error: (error) => {
@@ -89,7 +88,7 @@ this.taskService.updateTask(updatedTask)
   )
   .subscribe({
     next: (response) => {
-      console.log('Task updated with additional data:', response);
+      console.log('Task updated:', response);
       this.router.navigate(['/tasks']);
     },
     error: (error) => {

@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, signal } from '@angular/core';
-import { TaskService } from '../../../services/task.service';
 import { CommonModule, NgClass } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink, RouterOutlet } from '@angular/router';
@@ -11,7 +10,7 @@ import type { Task } from '../../models/task.model';
   imports: [ReactiveFormsModule, NgClass, RouterOutlet, RouterLink, CommonModule],
   templateUrl: './task.component.html',
   styleUrl: './task.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush, 
+  /* changeDetection: ChangeDetectionStrategy.OnPush,  */
 })
 
 export class TaskComponent {
@@ -23,7 +22,7 @@ export class TaskComponent {
   isCompleted = signal<boolean>(false);
   errorMessage: string = '';
 
-  constructor(private formBuilder: FormBuilder, private taskService: TaskService){}
+  constructor(private formBuilder: FormBuilder){}
 
   ngOnInit(): void {
     this.isCompleted.set(this.task.completed); // initialize signal with task's completed state

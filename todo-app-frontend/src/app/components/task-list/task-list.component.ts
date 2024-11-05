@@ -13,7 +13,7 @@ import { catchError, interval, switchMap, throwError, timer } from 'rxjs';
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.css'],
   outputs: ['completedChanged'],
-  changeDetection: ChangeDetectionStrategy.OnPush, 
+  /* changeDetection: ChangeDetectionStrategy.OnPush, */ 
 })
 export class TaskListComponent {
   tasks = signal<Task[]>([]);
