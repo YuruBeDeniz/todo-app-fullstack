@@ -1,13 +1,12 @@
 <div class="calculator-container">
-<h3>Output: {{ displayValue}}</h3>
+<h3>{{ displayValue}}</h3>
 <br />
 <input type="number" [(ngModel)]="num" placeholder="enter first number">
 <button (click)="increment()">+</button>
 <button (click)="decrement()">-</button>
 <button (click)="multiply(num)">x</button>
 <button (click)="divide()">/</button>
-<br>
-<button (click)="reset()">Reset</button>
+<button class="calculator-button" (click)="reset()">Reset</button>
 </div>
 
 @if (errorMessage()) {
