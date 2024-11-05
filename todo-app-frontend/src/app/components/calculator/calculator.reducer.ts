@@ -5,9 +5,9 @@ const initialState = 0;
 
 export const calculatorReducer = createReducer(
     initialState,
-    on(increment, (state) => state + 1),
-    on(decrement, (state) => state - 1),
-    on(reset, () => 0),
-    on(multiply, (state, { num1, num2 }) => num1 * num2),
-    on(divide, (state, { num1, num2 }) => num2 !== 0 ? num1 / num2 : state)
+    on(increment, (state, { num }) => state + num),
+    on(decrement, (state, { num }) => state - num),
+    on(multiply, (state, { num }) => state * num),
+    on(divide, (state, { num }) => num !== 0 ? state / num : state),
+    on(reset, () => initialState),
 )

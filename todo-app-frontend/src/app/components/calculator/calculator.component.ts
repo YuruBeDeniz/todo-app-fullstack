@@ -14,37 +14,44 @@ import { FormsModule } from '@angular/forms';
 })
 export class CalculatorComponent {
   calculate$: Observable<number>
-  num1: number = 0
-  num2: number = 0
+  displayValue = 0
+  num: number = 0
   errorMessage = signal<string>("")
 
   constructor(private store: Store<{ calculate : number }>) {
     this.calculate$ = store.select('calculate')
+
+    this.calculate$.subscribe(value => {
+      this.displayValue = value;
+    });
   }
 
   increment() {
-    this.store.dispatch(increment());
+    this.errorMessage.set("")
+    this.store.dispatch(increment({ num: this.num }));
   }
 
   decrement() {
-    this.store.dispatch(decrement());
+    this.errorMessage.set("")
+    this.store.dispatch(decrement({ num: this.num }));
   }
 
   reset() {
     this.store.dispatch(reset());
-    this.num1 = 0
-    this.num2 = 0
+    this.num = 0
+    this.displayValue = 0
     this.errorMessage.set("")
   }
 
-  multiply(num1: number, num2: number) {
-    this.store.dispatch(multiply({ num1: this.num1, num2: this.num2 }));
+  multiply(num: number) {
+    this.errorMessage.set("")
+    this.store.dispatch(multiply({ num: this.num }));
   }
 
   divide() {
     this.errorMessage.set("");
-    if(this.num2 !== 0) {
-      this.store.dispatch(divide({ num1: this.num1, num2: this.num2 }));
+    if(this.num !== 0) {
+      this.store.dispatch(divide({ num: this.num}));
     } else {
       this.errorMessage.update(value => "Cannot divide by zero!")
     }
