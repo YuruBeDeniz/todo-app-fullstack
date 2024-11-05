@@ -1,4 +1,16 @@
+<div class="calculator-container">
 <h3>Output: {{ calculate$ | async }}</h3>
 <button (click)="increment()">+</button>
 <button (click)="decrement()">-</button>
+<br />
+<input type="number" [(ngModel)]="num1" placeholder="enter first number">
+<input type="number" [(ngModel)]="num2" placeholder="enter second number">
+<button (click)="multiply(num1, num2)">Multiply</button>
+<button (click)="divide()">Divide</button>
+<br>
 <button (click)="reset()">Reset</button>
+</div>
+
+@if (errorMessage()) {
+  <div class="error">{{ errorMessage() }}</div>
+}
