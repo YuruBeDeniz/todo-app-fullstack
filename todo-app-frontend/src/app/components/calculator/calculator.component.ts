@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { increment, decrement, reset, multiply, divide } from './calculator.actions';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { selectCurrentValue } from './calculator.selectors';
 
 @Component({
   selector: 'app-calculator',
@@ -19,7 +20,8 @@ export class CalculatorComponent {
   errorMessage = signal<string>("")
 
   constructor(private store: Store<{ calculate : number }>) {
-    this.calculate$ = store.select('calculate')
+    //without selectCurrentValue, we'd use 'calculate' key coming from app.config.ts
+    this.calculate$ = store.select(selectCurrentValue)
 
     this.calculate$.subscribe(value => {
       this.displayValue = value;
@@ -43,7 +45,7 @@ export class CalculatorComponent {
     this.errorMessage.set("")
   }
 
-  multiply(num: number) {
+  multiply() {
     this.errorMessage.set("")
     this.store.dispatch(multiply({ num: this.num }));
   }
