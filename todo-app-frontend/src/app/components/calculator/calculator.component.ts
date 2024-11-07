@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { Store, StoreModule } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { increment, decrement, reset, multiply, divide } from './calculator.actions';
@@ -18,6 +18,30 @@ export class CalculatorComponent {
   displayValue = 0
   num: number = 0
   errorMessage = signal<string>("")
+
+  principal = 0;
+  rate = 0;
+  time = 0;
+  showInterest = signal(false);
+
+  // Computed signal to calculate interest lazily
+  compoundInterest = computed(() => {
+    if (this.showInterest()) {
+      return this.principal * Math.pow(1 + this.rate / 100, this.time);
+    }
+    return 0;
+  });
+
+  calculateInterest() {
+    this.showInterest.set(true);  // Triggers the calculation only when requested
+  }
+
+  count = signal(0);
+  doubleCount = computed(() => this.count() * 2);
+
+  incrementing() {
+    this.count.update(value => value + 1);
+  }
 
   constructor(private store: Store<{ calculate : number }>) {
     //without selectCurrentValue, we'd use 'calculate' key coming from app.config.ts

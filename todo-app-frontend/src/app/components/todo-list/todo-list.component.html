@@ -4,7 +4,7 @@
   <button (click)="addTodo()">Add</button>
   
   <ol>
-    <li *ngFor="let todo of todos">
+    <li *ngFor="let todo of todos$ | async">
       <app-todo [todo]="todo" (completedChanged)="onIsCompleted($event)"></app-todo>
     </li>
   </ol>

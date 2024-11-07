@@ -4,7 +4,7 @@ import { Observable } from "rxjs";
 import type { Todo } from "../app/models/todo.model";
 
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 
 export class TodoService {
   apiUrl = 'http://localhost:5005/api/todos';
