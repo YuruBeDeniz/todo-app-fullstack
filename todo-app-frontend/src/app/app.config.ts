@@ -15,6 +15,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes, withComponentInputBinding()),
     provideHttpClient(),
     provideStore({ calculate: calculatorReducer, todos: todoListReducer }),
-    provideEffects()
+    provideEffects([TodoListEffects])
 ]
 };

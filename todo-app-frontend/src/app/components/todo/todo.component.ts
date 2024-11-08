@@ -15,7 +15,7 @@ export class TodoComponent {
   @Output() completedChanged = new EventEmitter<Todo>();
 
   toggleComplete(): void {
-    this.todo.completed = !this.todo.completed;
-    this.completedChanged.emit(this.todo)
+    const updatedTodo = { ...this.todo, completed: !this.todo.completed }; 
+    this.completedChanged.emit(updatedTodo);
   }
 }

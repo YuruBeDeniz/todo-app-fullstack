@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import type { Todo } from '../../models/todo.model';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { getTodos, addTodo, updateTodo } from './todo-list.actions';
 
 @Component({
   selector: 'app-todo-list',
@@ -26,19 +27,17 @@ export class TodoListComponent implements OnInit {
   }  
 
   ngOnInit(): void {
-    this.store.dispatch({ type: '[TodoList Component] Get Todos'})
+    this.store.dispatch(getTodos())
   }
 
   addTodo(): void {
     const newTodo: Todo = { title: this.title, completed: false };
-    this.todoService.addTodo(newTodo).subscribe(() => {
-      this.store.dispatch({ type: '[TodoList Component] Add Todo', payload: newTodo})
-      this.title = '';
-    });
+    this.store.dispatch(addTodo({ todo: newTodo }));
+    this.title = '';
   }
 
   onIsCompleted(todo: Todo): void {
-    this.todoService.updateTodo(todo).subscribe();
+    this.store.dispatch(updateTodo({ todo }));
   }
 }
 
